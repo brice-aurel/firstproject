@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Complaint;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Teacher extends Model
 {
@@ -12,5 +13,10 @@ class Teacher extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
 
 }

@@ -1,9 +1,6 @@
 <?php
-
-use App\Http\Controllers\SchoolsController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ToastsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ComplaintController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function() {
+    return view('bienvenue');
+} )->name('bienvenue');
+Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
+Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
+Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
 
-Route::get('/',[TeacherController::class, 'index'])->name('teachers.index');
-Route::get('/teacher/create',[TeacherController::class, 'create'])->name('teachers.create');
-Route::post('/teacher/create',[TeacherController::class, 'store'])->name('teachers.store');
-Route::get('/teacher/{id}',[TeacherController::class, 'show'])->name('teachers.show');
-Route::get('/campus', [SchoolsController::class, 'index'])->name('schools.index');
-Route::get('/campus/{id}', [SchoolsController::class, 'show'])->name('schools.show');
-Route::get('/plaintes', [ToastsController::class, 'index'])->name('toasts.index');
-
-
-Route::get('/toast/create', [ToastsController::class, 'create'])->name('toasts.create');
-Route::post('/toast/create', [ToastsController::class, 'store'])->name('toasts.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

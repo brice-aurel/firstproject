@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Complaint;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Observation extends Model
 {
@@ -12,4 +13,9 @@ class Observation extends Model
     protected $fillable = ['observation'];
 
     public $timestamps = false;
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
 }

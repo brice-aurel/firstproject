@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\School;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -15,9 +14,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $i = 1;
-        $teachers = Teacher::orderByDesc('id')->get();
-        return view('teachers.index', compact(['teachers', 'i']));
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teachers.create');
+        //
     }
 
     /**
@@ -38,13 +35,9 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        Teacher::create([
-            'name' => $request->name,
-            'date' => $request->date,
-            'cours' => $request->cours,
-        ]);
-
-        return redirect()->route('teachers.index');
+        $teacher = new Teacher;
+        $teacher->name = "Tchamsi Steve";
+        $teacher->save();
     }
 
     /**
@@ -55,9 +48,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $schools = School::all();
-        $teacher = Teacher::findOrFail($id);
-        return view('teachers.show', compact(['teacher', 'schools']));
+        //
     }
 
     /**

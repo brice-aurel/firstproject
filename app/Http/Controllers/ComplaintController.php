@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
+use App\Models\Observation;
 use App\Models\School;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
-class SchoolsController extends Controller
+class ComplaintController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,9 @@ class SchoolsController extends Controller
      */
     public function index()
     {
-        return view('schools.index', ['schools' => School::all()]);
+        $complaints = Complaint::orderByDesc('id')->get();
+        $i = 1;
+        return view('complaints.index',compact(['complaints', 'i']));
     }
 
     /**
@@ -24,7 +29,10 @@ class SchoolsController extends Controller
      */
     public function create()
     {
-        //
+        $teachers = Teacher::all();
+        $observations = Observation::all();
+        $schools = School::all();
+        return view('complaints.create', compact(['teachers', 'observations', 'schools']));
     }
 
     /**
@@ -35,7 +43,21 @@ class SchoolsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Complaint::create(
+            [
+                'course' => $request->course,
+                'teacher_id' => $request->teacher,
+                'school_id' => $request->school,
+                'specialite' => $request->specialite,
+                'start' => $request->start,
+                'end' => $request->end,
+                'ticket' => $request->ticket,
+                'date' => $request->date,
+                'observation_id' => $request->observation,
+            ]
+        );
+
+        return redirect()->route('complaint.index');
     }
 
     /**
@@ -46,9 +68,7 @@ class SchoolsController extends Controller
      */
     public function show($id)
     {
-        $i = 1;
-        $school = School::find($id);
-        return view('schools.show', compact(['school', 'i']));
+        //
     }
 
     /**

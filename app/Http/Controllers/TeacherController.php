@@ -35,9 +35,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        $teacher = new Teacher;
-        $teacher->name = "Tchamsi Steve";
-        $teacher->save();
+        //
     }
 
     /**
@@ -48,7 +46,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('teachers.show', ['teacher' => Teacher::find($id), 'i' => $i = 1]);
     }
 
     /**

@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="align-items-center">
+
+    <div class="text-center my-5 text-4xl">
+        <h1 class="font-bold">Liste des cas d'indiscipline</h1>
+    </div>
+
     <table class="table-auto">
         <thead>
             <tr>
@@ -22,7 +27,7 @@
                 <tr class="hover:bg-gray-100">
                     <td class="border p-1 text-sm">{{ $i++ }}</td>
                     <td class="border p-1 text-sm">
-                        <p><a href="">{{ $complaint->teacher->name }}</a></p>
+                        <p><a href="{{ route('teacher.show', $complaint->teacher->id) }}" class="font-semibold">{{ $complaint->teacher->name }}</a></p>
                     </td>
                     <td class="border p-1 text-sm">
                         <p>{{ $complaint->course }}</p>
@@ -52,6 +57,5 @@
             @endforeach
         </tbody>
     </table>
-    <p class="mt-4">Total = {{ $complaints->count() }}</p>
 </div>
 @endsection

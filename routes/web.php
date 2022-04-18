@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,9 @@ use App\Http\Controllers\ComplaintController;
 Route::get('/', function() {
     return view('bienvenue');
 } )->name('bienvenue');
+
+Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.show');
+
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');

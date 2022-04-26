@@ -22,6 +22,8 @@ Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.sh
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
+Route::get('/complaint/search', [ComplaintController::class, 'search'])->name('complaint.search');
+// Route::get('/complaint/research', [ComplaintController::class, 'research'])->name('complaint.research');
 
 
 Route::get('/dashboard', function () {

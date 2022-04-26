@@ -6,6 +6,7 @@ use App\Models\Complaint;
 use App\Models\Observation;
 use App\Models\School;
 use App\Models\Teacher;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
@@ -94,14 +95,13 @@ class ComplaintController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function search(Request $request)
     {
-        //
+        $i = 1;
+        $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
+        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d') ;
+        $resultats = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.research', compact(['resultats', 'i']));
     }
+
 }

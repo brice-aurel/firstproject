@@ -30,8 +30,8 @@ class ComplaintController extends Controller
      */
     public function create()
     {
-        $teachers = Teacher::all();
-        $observations = Observation::all();
+        $teachers = Teacher::orderBy('name')->get();
+        $observations = Observation::orderBy('observation')->get();
         $schools = School::all();
         return view('complaints.create', compact(['teachers', 'observations', 'schools']));
     }
@@ -57,6 +57,8 @@ class ComplaintController extends Controller
                 'observation_id' => $request->observation,
             ]
         );
+
+        session()->flash('message', 'nouveaux cas d\'indiscipline crée avec succès');
 
         return redirect()->route('complaint.index');
     }

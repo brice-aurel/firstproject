@@ -25,9 +25,11 @@
                     </li>
                 </ul>
             </div>
+            @if (!Route::is("complaint.search"))
             <div>
                 @include('partial.form')
             </div>
+            @endif
         </div>
 
         <div>

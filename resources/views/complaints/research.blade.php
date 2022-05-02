@@ -75,9 +75,9 @@
                         <td class="border p-1 text-sm">
                             <p>{{ format_heure($resultat->end) }}</p>
                         </td>
-                        <td class="border p-1 text-sm">
+                        {{-- <td class="border p-1 text-sm">
                             <p>{{ $resultat->ticket }}</p>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

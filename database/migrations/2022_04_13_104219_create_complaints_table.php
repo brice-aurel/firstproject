@@ -18,7 +18,7 @@ class CreateComplaintsTable extends Migration
             $table->string('course');
             $table->string('specialite');
             $table->date('date');
-            $table->time('start');
+            $table->time('start'); 
             $table->time('end');
             $table->integer('ticket');
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade')->onUpdate('cascade');

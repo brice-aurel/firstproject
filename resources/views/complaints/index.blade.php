@@ -9,6 +9,10 @@
             </div>
         @endif
 
+        <div class="text-green-500 p-4 bg-green-50 w-full text-center border rounded-sm shadow-xl">
+                <a href="{{ route('generate-pdf', ['download' => 'pdf']) }}" class="">Export PDF</a>
+            </div>
+
         <div class="text-center my-5 text-4xl">
             <h1 class="font-bold">Liste des cas d'indiscipline</h1>
         </div>

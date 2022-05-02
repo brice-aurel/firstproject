@@ -23,12 +23,12 @@ Route::post('teacher/create', [TeacherController::class, 'store'])->name('teache
 Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.show');
 
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
+Route::get('generate-pdf', [ComplaintController::class, 'pdfView'])->name('generate-pdf');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
 Route::get('/complaint/search', [ComplaintController::class, 'search'])->name('complaint.search');
 
 Route::post('observation/create', [ObservationController::class, 'store'])->name('observation.store');
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');

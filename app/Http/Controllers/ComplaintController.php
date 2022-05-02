@@ -6,6 +6,7 @@ use App\Models\Complaint;
 use App\Models\Observation;
 use App\Models\School;
 use App\Models\Teacher;
+use Barryvdh\DomPDF\Facade\PDF;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ComplaintController extends Controller
     {
         $complaints = Complaint::orderByDesc('id')->get();
         $i = 1;
-        return view('complaints.index',compact(['complaints', 'i']));
+        return view('complaints.index', compact(['complaints', 'i']));
     }
 
     /**
@@ -101,9 +102,22 @@ class ComplaintController extends Controller
     {
         $i = 1;
         $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
-        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d') ;
+        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
         $resultats = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
         return view('complaints.research', compact(['resultats', 'i']));
+    }
+
+    public function pdfView(Request $request)
+    {
+        $complaints = Complaint::orderByDesc('id')->get();
+        $i = 1;
+        view()->share(['complaints' => $complaints, 'i' => $i]);
+        if ($request->has('download')) {
+            PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadView('complaints.pdf');
+            return $pdf->download('complaints.pdf');
+        }
+        return view('complaints.pdf');
     }
 
 }

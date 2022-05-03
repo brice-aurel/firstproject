@@ -32,11 +32,11 @@
         </div>
 
         <div class="shadow-xl border col-span-2 p-4 rounded-xl">
-            <form action="{{ route('observation.store') }}" method="POST">
+            <form action="{{ route('category.store') }}" method="POST">
                 @csrf
                 <div class="mt-5">
-                    <label for="">Observation *:</label>
-                    <input type="text" name="observation" class="w-full border rounded-sm my-2" value="{{ old('observation') }}" placeholder="Entrez une observation"
+                    <label for="">Category *:</label>
+                    <input type="text" name="libelle" class="w-full border rounded-sm my-2" value="{{ old('observation') }}" placeholder="Entrez une observation"
                         required>
                 </div>
 

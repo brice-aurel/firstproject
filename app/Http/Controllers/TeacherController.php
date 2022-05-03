@@ -3,36 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
+use DateTime;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         return view('teachers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         Teacher::create(['name' => request('name')]);
@@ -40,14 +22,22 @@ class TeacherController extends Controller
         return redirect()->route('teacher.create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return view('teachers.show', ['teacher' => Teacher::find($id), 'i' => $i = 1]);
+        return view('teachers.show', ['teacher' => Teacher::find($id), 'i' => 1 ]);
+    }
+
+    public function getPDFteacher($id)
+    {
+        dd($id);
+        $teacher = Teacher::find($id);
+        $i = 1;
+        view()->share(['teacher' => $teacher, 'i' => $i]);
+        if ($request->has('download')) {
+            PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadView('teachers.pdf');
+            return $pdf->download("Liste d'indisciplines de ". $teacher->name ." ". (new DateTime(now()))->format('d/m/Y'). ".pdf");
+        }
+        return view('teachers.pdf');
     }
 }

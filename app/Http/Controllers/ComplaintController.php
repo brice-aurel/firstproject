@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Complaint;
-use App\Models\Observation;
 use App\Models\School;
 use App\Models\Teacher;
 use Barryvdh\DomPDF\Facade\PDF;
@@ -32,9 +32,9 @@ class ComplaintController extends Controller
     public function create()
     {
         $teachers = Teacher::orderBy('name')->get();
-        $observations = Observation::orderBy('observation')->get();
+        $categories = Category::orderBy('libelle')->get();
         $schools = School::all();
-        return view('complaints.create', compact(['teachers', 'observations', 'schools']));
+        return view('complaints.create', compact(['teachers', 'categories', 'schools']));
     }
 
     /**
@@ -45,20 +45,29 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,
+            [
+                'course' => 'required|min:3',
+                'commentaire' => 'required|min:5',
+                'date' => 'required',
+                'specialite' => 'required|min:3',
+            ]
+        );
         Complaint::create(
             [
+                'code' => Complaint::getCodeGenerate(),
                 'course' => $request->course,
                 'teacher_id' => $request->teacher,
                 'school_id' => $request->school,
                 'specialite' => $request->specialite,
                 'start' => $request->start,
                 'end' => $request->end,
-                'ticket' => $request->ticket,
                 'date' => $request->date,
-                'observation_id' => $request->observation,
+                'category_id' => $request->category,
+                'commentaire' => $request->commentaire,
             ]
         );
-
+        
         session()->flash('message', 'nouveaux cas d\'indiscipline crée avec succès');
 
         return redirect()->route('complaint.index');
@@ -103,8 +112,8 @@ class ComplaintController extends Controller
         $i = 1;
         $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
         $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
-        $resultats = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
-        return view('complaints.research', compact(['resultats', 'i']));
+        $complaints = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.research', compact(['complaints', 'i']));
     }
 
     public function pdfView(Request $request)
@@ -115,7 +124,7 @@ class ComplaintController extends Controller
         if ($request->has('download')) {
             PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
             $pdf = PDF::loadView('complaints.pdf');
-            return $pdf->download('complaints.pdf');
+            return $pdf->download("Liste des enseignants indisciplines ". (new DateTime(now()))->format('d/m/Y'). ".pdf");
         }
         return view('complaints.pdf');
     }

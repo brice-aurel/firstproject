@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObservationsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateObservationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('observations', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->text('observation')->unique();
+            $table->string('libelle')->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateObservationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('observations');
+        Schema::dropIfExists('categories');
     }
 }

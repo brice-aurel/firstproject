@@ -15,15 +15,15 @@ class CreateComplaintsTable extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->string('course');
-            $table->string('specialite');
+            $table->string('code');
+            $table->string('course')->nullable();
+            $table->string('specialite')->nullable();
             $table->date('date');
-            $table->time('start'); 
-            $table->time('end');
-            $table->integer('ticket');
+            $table->time('start')->nullable(); 
+            $table->time('end')->nullable();
             $table->foreignId('teacher_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('school_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('observation_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->text('commentaire')->nullable();
             $table->timestamps();
         });
     }

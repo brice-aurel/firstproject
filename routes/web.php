@@ -1,7 +1,8 @@
 <?php
+
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\TeacherController;
 
 /*
@@ -19,6 +20,7 @@ Route::get('/', function() {
 } )->name('bienvenue');
 
 Route::get('teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
+Route::get('generate-pdf-teacher', [TeacherController::class, 'getPDFteacher'])->name('generate-pdf-teacher');
 Route::post('teacher/create', [TeacherController::class, 'store'])->name('teacher.store');
 Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.show');
 
@@ -28,7 +30,7 @@ Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('c
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
 Route::get('/complaint/search', [ComplaintController::class, 'search'])->name('complaint.search');
 
-Route::post('observation/create', [ObservationController::class, 'store'])->name('observation.store');
+Route::post('category/create', [CategoryController::class, 'store'])->name('category.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

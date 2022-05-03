@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    @if ($resultats->isNotEmpty())
+    @if ($complaints->isNotEmpty())
     <div class="mt-10">
         <table class="table-auto">
             <thead>
@@ -44,40 +44,40 @@
                     <th class="border text-sm p-4 text-left bg-gray-100">date</th>
                     <th class="border text-sm p-4 text-left bg-gray-100">heure debut</th>
                     <th class="border text-sm p-4 text-left bg-gray-100">heure fin</th>
-                    {{-- <th class="border text-sm p-4 text-left bg-gray-100">ticket</th> --}}
                 </tr>
             </thead>
             <tbody id="myTable">
-                @foreach ($resultats as $resultat)
+                @foreach ($complaints as $complaint)
                     <tr class="hover:bg-gray-100">
                         <td class="border p-1 text-sm">{{ $i++ }}</td>
                         <td class="border p-1 text-sm">
-                            <p><a href="{{ route('teacher.show', $resultat->teacher->id) }}" class="font-semibold">{{ $resultat->teacher->name }}</a></p>
+                            <p><a href="{{ route('teacher.show', $complaint->teacher->id) }}" class="font-semibold">{{ $complaint->teacher->name }}</a></p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $resultat->course }}</p>
+                            <p>{{ $complaint->course }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $resultat->specialite }}</p>
+                            <p>{{ $complaint->specialite }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $resultat->observation->observation }}</p>
+                            <p><b class="font-semibold">
+                                    {{ $complaint->category->libelle }}
+                                </b> <br>
+                                {{ $complaint->commentaire }}
+                            </p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $resultat->school->name }}</p>
+                            <p>{{ $complaint->school->name }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_date($resultat->date) }}</p>
+                            <p>{{ format_date($complaint->date) }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($resultat->start) }}</p>
+                            <p>{{ format_heure($complaint->start) }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($resultat->end) }}</p>
+                            <p>{{ format_heure($complaint->end) }}</p>
                         </td>
-                        {{-- <td class="border p-1 text-sm">
-                            <p>{{ $resultat->ticket }}</p>
-                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
@@ -85,7 +85,7 @@
     </div>
     @else
     <div class="font-sans text-center text-2xl md:text-4xl md:text-semibold md:my-24 my-10">
-        <p>{{ "Désolé aucun resultat trouvé !!!" }}</p>
+        <p>{{ "Désolé aucun complaint trouvé !!!" }}</p>
     </div>
     @endif
 @endsection

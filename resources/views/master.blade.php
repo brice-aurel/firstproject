@@ -25,7 +25,7 @@
                     </li>
                 </ul>
             </div>
-            @if (!Route::is("complaint.search"))
+            @if (!Route::is("complaint.search") && !Route::is('complaint.create'))
             <div>
                 @include('partial.form')
             </div>

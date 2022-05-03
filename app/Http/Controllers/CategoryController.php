@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Observation;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ObservationController extends Controller
+class CategoryController extends Controller
 {
     public function create()
     {
@@ -14,8 +14,8 @@ class ObservationController extends Controller
 
     public function store()
     {
-        Observation::create(['observation' => request('observation')]);
-        session()->flash('msg', 'nouvelle observation enregistré');
+        Category::create(['libelle' => request('libelle')]);
+        session()->flash('msg', 'nouvelle categorie enregistré');
         return redirect()->route('teacher.create');
     }
 }

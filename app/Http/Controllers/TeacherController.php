@@ -29,7 +29,9 @@ class TeacherController extends Controller
 
     public function getPDFteacher(Request $request)
     {
-        $teacher = Teacher::find(11);
+        // dd((int)$request->teacher);
+        $id = (int)$request->teacher;
+        $teacher = Teacher::find($id);
         $i = 1;
         view()->share(['teacher' => $teacher, 'i' => $i]);
         if ($request->has('download')) {

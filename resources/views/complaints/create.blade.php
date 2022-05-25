@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-center my-5">
-        <h1 class="text-red-300 text-xl">{{ 'Tous les champs avec * sont obligatoires !!!' }}</h1>
+        <h1 class="text-red-500 text-xl">{{ 'Tous les champs avec * sont obligatoires !!!' }}</h1>
     </div>
 
     <div class="grid grid-cols-4 gap-6 p-4">

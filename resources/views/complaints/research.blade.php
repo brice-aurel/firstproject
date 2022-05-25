@@ -85,7 +85,7 @@
     </div>
     @else
     <div class="font-sans text-center text-2xl md:text-4xl md:text-semibold md:my-24 my-10">
-        <p>{{ "Désolé aucun complaint trouvé !!!" }}</p>
+        <p>{{ "Désolé aucun enregistrement d'indiscipline trouvé ☹☹☹ !" }}</p>
     </div>
     @endif
 @endsection

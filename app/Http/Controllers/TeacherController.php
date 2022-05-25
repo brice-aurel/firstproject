@@ -9,7 +9,7 @@ use DateTime;
 
 class TeacherController extends Controller
 {
-    
+
     public function create()
     {
         return view('teachers.create');
@@ -27,10 +27,9 @@ class TeacherController extends Controller
         return view('teachers.show', ['teacher' => Teacher::find($id), 'i' => 1 ]);
     }
 
-    public function getPDFteacher($id)
+    public function getPDFteacher(Request $request)
     {
-        dd($id);
-        $teacher = Teacher::find($id);
+        $teacher = Teacher::find(11);
         $i = 1;
         view()->share(['teacher' => $teacher, 'i' => $i]);
         if ($request->has('download')) {

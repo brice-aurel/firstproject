@@ -47,6 +47,7 @@ class ComplaintController extends Controller
     {
         $this->validate($request,
             [
+                'teacher' => 'required|min:3',
                 'course' => 'required|min:3',
                 'commentaire' => 'required|min:5',
                 'date' => 'required',
@@ -67,7 +68,7 @@ class ComplaintController extends Controller
                 'commentaire' => $request->commentaire,
             ]
         );
-        
+
         session()->flash('message', 'nouveaux cas d\'indiscipline crée avec succès');
 
         return redirect()->route('complaint.index');

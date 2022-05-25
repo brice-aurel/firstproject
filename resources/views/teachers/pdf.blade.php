@@ -1,50 +1,95 @@
-<table class="table-auto mt-10">
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta htpp-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        table {
+            width: 100%;
+            border: 1px solid black;
+        }
+        th, td {
+            margin: 0%;
+            padding: 4px;
+            text-align: left;
+            font-size: 9px;
+            border: 1px solid black;
+        }
+        th {
+            background-color: gray;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="text-center my-5 text-4xl">
+        <h3 class="font-semibold">l'enseignant
+            <b class="">{{ $teacher->name }}</b>
+            recense
+            {{ $teacher->complaints->count() }}
+            cas d'indiscipline
+        </h3>
+    </div>
+
+<table>
     <thead>
         <tr>
-            <th class="border text-sm p-4 text-left bg-gray-100">N°</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">cours</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">filiere</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">Observation</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">Etablissement</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">date</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">heure debut</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">heure fin</th>
-            <th class="border text-sm p-4 text-left bg-gray-100">code</th>
+            <th>N°</th>
+            <th>cours</th>
+            <th>filiere</th>
+            <th>Observation</th>
+            <th>Etablissement</th>
+            <th>date</th>
+            <th>heure debut</th>
+            <th>heure fin</th>
+            <th>code</th>
         </tr>
     </thead>
     <tbody id="myTable">
         @foreach ($teacher->complaints as $complaint)
-            <tr class="hover:bg-gray-100">
-                <td class="border p-1 text-sm">{{ $i++ }}</td>
-                <td class="border p-1 text-sm">
+            <tr >
+                <td>{{ $i++ }}</td>
+                <td>
                     <p>{{ $complaint->course }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ $complaint->specialite }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p><b class="font-semibold">
                             {{ $complaint->category->libelle }}
                         </b> <br>
                         {{ $complaint->commentaire }}
                     </p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ $complaint->school->name }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ format_date($complaint->date) }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ format_heure($complaint->start) }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ format_heure($complaint->end) }}</p>
                 </td>
-                <td class="border p-1 text-sm">
+                <td>
                     <p>{{ $complaint->code }}</p>
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+</body>
+
+</html>

@@ -11,7 +11,7 @@
 
         <div class="p-4 border bg-gray-100 flex justify-start">
             <a href="{{ route('complaint.create') }}" class="p-4 bg-blue-200 hover:bg-blue-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Enregistrement d'un cas</a>
-            <a href="{{ route('generate-pdf', ['download' => 'pdf']) }}" class="p-4 bg-yellow-200 hover:bg-yellow-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Export PDF</a>
+            <a href="{{ route('generate-pdf', ['download' => 'pdf']) }}" class="p-4 bg-yellow-200 hover:bg-yellow-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Export to PDF</a>
         </div>
 
         <div class="text-center my-5 text-4xl">

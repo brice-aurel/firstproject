@@ -20,9 +20,9 @@ Route::get('/', function() {
 } )->name('bienvenue');
 
 Route::get('teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
-Route::get('generate-pdf-teacher', [TeacherController::class, 'getPDFteacher'])->name('generate-pdf-teacher');
 Route::post('teacher/create', [TeacherController::class, 'store'])->name('teacher.store');
 Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.show');
+Route::get('generate-pdf-teacher/', [TeacherController::class, 'getPDFteacher'])->name('generate-pdf-teacher');
 
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
 Route::get('generate-pdf', [ComplaintController::class, 'pdfView'])->name('generate-pdf');

@@ -5,7 +5,7 @@
 
     <div class="text-center my-5 text-4xl">
         <h1 class="font-semibold">l'enseignant
-            <b class="">{{ $teacher->name }}</b>
+            <b>{{ $teacher->name }}</b>
             recense
             {{ $teacher->complaints->count() }}
             cas d'indiscipline
@@ -64,8 +64,8 @@
     </table>
 
     <div class="mt-10 flex justify-around">
-        <p><a href="{{ route('generate-pdf-teacher', ['download' => 'pdf']) }}" class="p-4 bg-yellow-200 hover:bg-yellow-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Export PDF</a></p>
-        <p><a href="{{ route('complaint.index') }}" class="bg-red-200 p-4 font-semibold rounded-xl shadow-lg border hover:bg-red-300">retour aux enregistrements</a></p>
+        {{-- <p><a href="{{ route('generate-pdf-teacher', ['download' => 'pdf']) }}" class=" text-green-400 hover:text-green-600 font-semibold">Export to PDF</a></p> --}}
+        <p><a href="{{ route('complaint.index') }}" class="text-red-400 font-semibold hover:text-red-600">retour aux enregistrements</a></p>
     </div>
 </div>
 @endsection

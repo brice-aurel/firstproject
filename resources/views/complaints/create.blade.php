@@ -12,29 +12,43 @@
                 <div class="flex justify-between">
                     <div>
                         <label for="">Nom(s) complet :*</label>
-                        <select name="teacher" id="" class="my-2">
+                        <select name="teacher" class="@error('teacher') is-invalid @enderror" id="" class="my-2">
+                            <option>-- Choix de l'enseignant --</option>
                             @foreach ($teachers as $teacher)
                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                             @endforeach
                         </select>
+                        @error('teacher')
+                            <span class="text-red-400 mt-2 block">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="">Campus :*</label>
-                        <select name="school" id="" class="my-2">
+                        <select name="school" class="@error('school') is-invalid @enderror" id="" class="my-2">
                             @foreach ($schools as $school)
                                 <option value="{{ $school->id }}">{{ $school->name }}</option>
                             @endforeach
                         </select>
+                        @error('school')
+                            <span class="text-red-400 mt-2 block">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="">Cours :*</label>
-                        <input type="text" name="course" id="" class="my-2">
+                        <input type="text" name="course" id="" class="my-2 @error('course') is-invalid @enderror">
+                        @error('course')
+                            <span class="text-red-400 mt-2 block">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="flex justify-between">
                     <div>
                         <label for="">Filiere :*</label>
-                        <input type="text" name="specialite" id="" class="block my-2 ">
+                        <input type="text" name="specialite" id=""
+                            class="block my-2 @error('specialite') is-invalid @enderror">
+                            @error('specialite')
+                                <span class="text-red-400 mt-2 block">{{ $message }}</span>
+                            @enderror
                     </div>
                     <div>
                         <label for="">Date :*</label>
@@ -59,8 +73,11 @@
                 </div>
                 <div>
                     <label for="">Commentaire :*</label>
-                    <textarea name="commentaire" cols="80" class="block" rows="5"
-                        placeholder="Entrez votre commentaire"></textarea>
+                    <textarea name="commentaire" cols="80" class="block" rows="5" placeholder="Entrez votre commentaire"
+                        class="@error('commentaire') is-invalid @enderror"></textarea>
+                        @error('commentaire')
+                            <span class="text-red-400 mt-2 block">{{ $message }}</span>
+                        @enderror
                 </div>
                 <div>
                     <button type="submit"

@@ -36,9 +36,9 @@ class TeacherController extends Controller
         view()->share(['teacher' => $teacher, 'i' => $i]);
         if ($request->has('download')) {
             PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
-            $pdf = PDF::loadView('teachers.pdf');
+            $pdf = PDF::loadView('teachers.generate-teacher-pdf');
             return $pdf->download("Liste d'indisciplines de ". $teacher->name ." ". (new DateTime(now()))->format('d/m/Y'). ".pdf");
         }
-        return view('teachers.pdf');
+        return view('teachers.generate-teacher-pdf');
     }
 }

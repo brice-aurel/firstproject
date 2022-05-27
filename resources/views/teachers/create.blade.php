@@ -35,7 +35,7 @@
             <form action="{{ route('category.store') }}" method="POST">
                 @csrf
                 <div class="mt-5">
-                    <label for="">Category *:</label>
+                    <label for="">Motif *:</label>
                     <input type="text" name="libelle" class="w-full border rounded-sm my-2" value="{{ old('observation') }}" placeholder="Entrez une observation"
                         required>
                 </div>

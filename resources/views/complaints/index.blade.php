@@ -10,8 +10,12 @@
         @endif
 
         <div class="p-4 border bg-gray-100 flex justify-start">
-            <a href="{{ route('complaint.create') }}" class="p-4 bg-blue-200 hover:bg-blue-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Enregistrement d'un cas</a>
-            <a href="{{ route('generate-pdf', ['download' => 'pdf']) }}" class="p-4 bg-yellow-200 hover:bg-yellow-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Export to PDF</a>
+            <a href="{{ route('complaint.create') }}"
+                class="p-4 bg-blue-200 hover:bg-blue-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Enregistrement
+                d'un cas</a>
+            <a href="{{ route('generate-pdf', ['download' => 'pdf']) }}"
+                class="p-4 bg-yellow-200 hover:bg-yellow-300 text-sm font-semibold shadow-lg mx-4 border rounded-xl">Export
+                to PDF</a>
         </div>
 
         <div class="text-center my-5 text-4xl">
@@ -22,14 +26,14 @@
             <thead>
                 <tr class="text-left">
                     <th class="border text-sm p-4 text-left bg-gray-100">N°</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">Nom(s) et Prénom(s)</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">cours</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">filiere</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Nom(s) et prénom(s)</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Enseignements</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Classe</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Sanction</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Motifs</th>
                     <th class="border text-sm p-4 text-left bg-gray-100">Observation</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Date des faits</th>
                     <th class="border text-sm p-4 text-left bg-gray-100">Etablissement</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">date</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">heure debut</th>
-                    <th class="border text-sm p-4 text-left bg-gray-100">heure fin</th>
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -47,23 +51,21 @@
                             <p>{{ $complaint->specialite }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p><b class="font-semibold">
-                                    {{ $complaint->category->libelle }}
-                                </b> <br>
-                                {{ $complaint->commentaire }}
+                            <p>{{ format_heure($complaint->hour) }}</p>
+                        </td>
+                        <td>
+                            <p>
+                                <b class="font-semibold">{{ $complaint->category->libelle }}</b>
                             </p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $complaint->school->name }}</p>
+                            <p>{{ $complaint->observation }}</p>
                         </td>
                         <td class="border p-1 text-sm">
                             <p>{{ format_date($complaint->date) }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($complaint->start) }}</p>
-                        </td>
-                        <td class="border p-1 text-sm">
-                            <p>{{ format_heure($complaint->end) }}</p>
+                            <p>{{ $complaint->school->name }}</p>
                         </td>
                     </tr>
                 @endforeach

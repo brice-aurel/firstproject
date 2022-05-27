@@ -45,14 +45,13 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,
-            [
-                'teacher' => 'required|min:3',
-                'course' => 'required|min:3',
-                'commentaire' => 'required|min:5',
-                'date' => 'required',
-                'specialite' => 'required|min:3',
-            ]
+        $request->validate([
+            'course' => 'required|min:3',
+            'specialite' => 'required|min:3',
+            'start' => 'required',
+            'date' => 'required',
+            'observation' => 'required|min:3',
+        ]
         );
         Complaint::create(
             [
@@ -61,11 +60,10 @@ class ComplaintController extends Controller
                 'teacher_id' => $request->teacher,
                 'school_id' => $request->school,
                 'specialite' => $request->specialite,
-                'start' => $request->start,
-                'end' => $request->end,
+                'hour' => $request->start,
                 'date' => $request->date,
                 'category_id' => $request->category,
-                'commentaire' => $request->commentaire,
+                'observation' => $request->observation,
             ]
         );
 
@@ -113,8 +111,8 @@ class ComplaintController extends Controller
         $i = 1;
         $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
         $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
-        $complaints = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
-        return view('complaints.research', compact(['complaints', 'i']));
+        $research = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.research', compact(['research', 'i', 'dateDebut', 'dateFin']));
     }
 
     public function pdfView(Request $request)
@@ -124,10 +122,27 @@ class ComplaintController extends Controller
         view()->share(['complaints' => $complaints, 'i' => $i]);
         if ($request->has('download')) {
             PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
-            $pdf = PDF::loadView('complaints.pdf');
-            return $pdf->download("Liste des enseignants indisciplines ". (new DateTime(now()))->format('d/m/Y'). ".pdf");
+            $pdf = PDF::loadView('complaints.generate-pdf');
+            return $pdf->download("Liste des enseignants indisciplines " . (new DateTime(now()))->format('d/m/Y') . ".pdf");
         }
-        return view('complaints.pdf');
+        return view('complaints.generate-pdf');
+    }
+
+    public function researchPDFView(Request $request)
+    {
+        // dd([$request->dateDebut, $request->dateFin]);
+        $dateDebut = $request->dateDebut;
+        $dateFin = $request->dateFin;
+        $research = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        $i = 1;
+        view()->share(['research' => $research, 'i' => $i, 'dateDebut' => $dateDebut, 'dateFin' => $dateFin]);
+        if ($request->has('download')) {
+            PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadView('complaints.generate-research');
+            return $pdf->download("Liste d'indisciplines allant du " . (new DateTime($dateDebut))->format('d/m/Y') .
+                " au" . (new DateTime($dateFin))->format('d/m/Y') . ".pdf");
+        }
+        return view('complaints.generate-research');
     }
 
 }

@@ -26,6 +26,7 @@ Route::get('generate-pdf-teacher/', [TeacherController::class, 'getPDFteacher'])
 
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
 Route::get('generate-pdf', [ComplaintController::class, 'pdfView'])->name('generate-pdf');
+Route::get('generate-research-pdf', [ComplaintController::class, 'researchPDFView'])->name('generate-research-pdf');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
 Route::get('/complaint/search', [ComplaintController::class, 'search'])->name('complaint.search');

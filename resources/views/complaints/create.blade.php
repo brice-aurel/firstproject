@@ -5,6 +5,16 @@
         <h1 class="text-red-500 text-xl">{{ 'Tous les champs avec * sont obligatoires !!!' }}</h1>
     </div>
 
+    {{-- <div>
+        @if ($errors->any())
+
+        @foreach ($errors->all() as $error)
+        <div class="text-red-400"> {{$error}} </div>
+        @endforeach
+
+        @endif
+    </div> --}}
+
     <div class="grid grid-cols-4 gap-6 p-4">
         <div class="border rounded-xl shadow-lg p-4 bg-white col-span-3 col-start-2 col-end-4">
             <form action="{{ route('complaint.store') }}" method="POST">
@@ -13,7 +23,7 @@
                     <div>
                         <label for="">Nom(s) complet :*</label>
                         <select name="teacher" class="@error('teacher') is-invalid @enderror" id="" class="my-2">
-                            <option>-- Choix de l'enseignant --</option>
+                            {{-- <option>-- Choix de l'enseignant --</option> --}}
                             @foreach ($teachers as $teacher)
                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                             @endforeach
@@ -34,16 +44,16 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="">Cours :*</label>
+                        <label for="">Enseignements :*</label>
                         <input type="text" name="course" id="" class="my-2 @error('course') is-invalid @enderror">
                         @error('course')
                             <span class="text-red-400 mt-2 block">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-evenly">
                     <div>
-                        <label for="">Filiere :*</label>
+                        <label for="">Classe :*</label>
                         <input type="text" name="specialite" id=""
                             class="block my-2 @error('specialite') is-invalid @enderror">
                             @error('specialite')
@@ -55,16 +65,13 @@
                         <input type="date" name="date" id="" class="block my-2">
                     </div>
                     <div>
-                        <label for="">Heure debut</label>
+                        <label for="">Sanction</label>
                         <input type="time" name="start" id="" class="block my-2">
                     </div>
-                    <div>
-                        <label for="">Heure fin</label>
-                        <input type="time" name="end" id="" class="block my-2">
-                    </div>
+
                 </div>
                 <div class="my-2">
-                    <label for="">Categorie :*</label>
+                    <label for="">Motifs :*</label>
                     <select name="category" class="block my-2 w-full">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->libelle }}</option>
@@ -72,8 +79,8 @@
                     </select>
                 </div>
                 <div>
-                    <label for="">Commentaire :*</label>
-                    <textarea name="commentaire" cols="80" class="block" rows="5" placeholder="Entrez votre commentaire"
+                    <label for="">Observations :*</label>
+                    <textarea name="observation" cols="80" class="block" rows="5" placeholder="Entrez votre commentaire"
                         class="@error('commentaire') is-invalid @enderror"></textarea>
                         @error('commentaire')
                             <span class="text-red-400 mt-2 block">{{ $message }}</span>

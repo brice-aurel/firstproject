@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Complaint;
+use DateTime;
+use App\Models\Classe;
 use App\Models\School;
 use App\Models\Teacher;
-use Barryvdh\DomPDF\Facade\PDF;
-use DateTime;
+use App\Models\Category;
+use App\Models\Complaint;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class ComplaintController extends Controller
 {
@@ -31,10 +32,11 @@ class ComplaintController extends Controller
      */
     public function create()
     {
+        $classes = Classe::all();
         $teachers = Teacher::orderBy('name')->get();
         $categories = Category::orderBy('libelle')->get();
         $schools = School::all();
-        return view('complaints.create', compact(['teachers', 'categories', 'schools']));
+        return view('complaints.create', compact(['teachers', 'categories', 'schools', 'classes']));
     }
 
     /**
@@ -46,11 +48,14 @@ class ComplaintController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'teacher' => 'required',
+            'school' => 'required',
+            'classe' => 'required',
+            'category' => 'required',
             'course' => 'required|min:3',
-            'specialite' => 'required|min:3',
             'start' => 'required',
             'date' => 'required',
-            'observation' => 'required|min:3',
+            'commentaire' => 'required|min:3',
         ]
         );
         Complaint::create(
@@ -59,11 +64,11 @@ class ComplaintController extends Controller
                 'course' => $request->course,
                 'teacher_id' => $request->teacher,
                 'school_id' => $request->school,
-                'specialite' => $request->specialite,
+                'classe_id' => $request->classe,
                 'hour' => $request->start,
                 'date' => $request->date,
                 'category_id' => $request->category,
-                'observation' => $request->observation,
+                'observation' => $request->commentaire,
             ]
         );
 

@@ -30,4 +30,6 @@ jQuery(document).ready(function () {
         $('.modal, .modal-motif').hide();
     });
 
+    $('select').select2();
+
 });

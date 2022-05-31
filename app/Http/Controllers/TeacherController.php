@@ -20,6 +20,7 @@ class TeacherController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate(['name' => 'unique:teachers|min:3|required']);
         Teacher::create(['name' => request('name')]);
         session()->flash('message', 'enseignant ajouté avec succès');
         return redirect()->route('teacher.create');

@@ -17,11 +17,10 @@ class CreateComplaintsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('course')->nullable();
-            $table->string('specialite')->nullable();
             $table->date('date');
             $table->time('hour')->nullable();
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('school_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('teacher_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('school_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->text('observation')->nullable();
             $table->timestamps();
         });

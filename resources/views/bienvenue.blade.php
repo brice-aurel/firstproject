@@ -31,7 +31,6 @@
         </div>
     </div>
 
-
     @include('partial.footer')
     <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
     <script src="{{ asset('js/recherche.js') }}"></script>

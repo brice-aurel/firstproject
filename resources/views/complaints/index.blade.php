@@ -38,13 +38,18 @@
                         <span class="close block text-right text-red-300 cursor-pointer font-bold text-sm border-b ">fermer
                             &times;</span>
                         <label for="">nom *:</label>
-                        <input type="text" name="name" class="w-full border rounded-sm my-2" value="{{ old('name') }}"
+                        <input type="text" name="name" class="w-full border rounded-sm my-2 @error('name') is-invalid @enderror" value="{{ old('name') }}"
                             placeholder="Entrez le nom de l'enseignant" required>
+                            <div class="text-red-400">
+                                @error('name')
+                                    {{$message}}
+                                @enderror
+                            </div>
                     </div>
 
                     <div>
                         <button type="submit"
-                            class="bg-blue-100 rounded-lg w-full my-4 hover:bg-blue-200 shadow-xl p-2">Ajouter</button>
+                            class="bg-blue-300 hover:bg-blue-400 rounded-lg w-full my-4 shadow-xl p-2">Ajouter</button>
                     </div>
                 </form>
             </div>
@@ -57,13 +62,18 @@
                             class="close-motif block text-right text-red-300 cursor-pointer font-bold text-sm border-b ">fermer
                             &times;</span>
                         <label for="">Motif *:</label>
-                        <input type="text" name="libelle" class="w-full border rounded-sm my-2"
+                        <input type="text" name="libelle" class="w-full border rounded-sm my-2  @error('libelle') is-invalid @enderror"
                             value="{{ old('observation') }}" placeholder="Entrez un motif" required>
+                            <div class="text-red-400">
+                                @error('libelle')
+                                    {{$message}}
+                                @enderror
+                            </div>
                     </div>
 
                     <div>
                         <button type="submit"
-                            class="bg-blue-100 rounded-lg w-full my-4 hover:bg-blue-200 shadow-xl p-2">Ajouter</button>
+                            class="bg-blue-300 hover:bg-blue-400 rounded-lg w-full my-4 shadow-xl p-2">Ajouter</button>
                     </div>
                 </form>
             </div>
@@ -95,7 +105,7 @@
                             <p>{{ $complaint->course }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ $complaint->specialite }}</p>
+                            <p>{{ $complaint->classe->name }}</p>
                         </td>
                         <td class="border p-1 text-sm">
                             <p>{{ format_heure($complaint->hour) }}</p>

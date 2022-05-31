@@ -6,16 +6,16 @@ use App\Models\Complaint;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Ticket extends Model
+class Classe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['numero'];
     public $timestamps = false;
+    protected $fillable = ['name'];
 
-    public function complaint()
+    public function complaints()
     {
-        return $this->hasOne(Complaint::class);
+        return $this->hasMany(Complaint::class);
     }
 
 }

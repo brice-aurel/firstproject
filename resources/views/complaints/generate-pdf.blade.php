@@ -62,7 +62,7 @@
                         <p>{{ $complaint->course }}</p>
                     </td>
                     <td>
-                        <p>{{ $complaint->specialite }}</p>
+                        <p>{{ $complaint->classe->name }}</p>
                     </td>
                     <td>
                         <p>{{ format_heure($complaint->hour) }}</p>

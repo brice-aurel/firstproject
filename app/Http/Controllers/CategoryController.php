@@ -15,8 +15,9 @@ class CategoryController extends Controller
         return view('teachers.create', compact(['complaints', 'i']));
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate(['libelle' => 'unique:categories|min:3|required']);
         Category::create(['libelle' => request('libelle')]);
         session()->flash('message', 'Nouveau motif enregistré avec succès');
         return redirect()->route('teacher.create');

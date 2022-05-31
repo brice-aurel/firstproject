@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Classe;
 use App\Models\School;
 use App\Models\Teacher;
 use App\Models\Category;
@@ -30,13 +31,18 @@ class Complaint extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class);
+    }
+
     public static function getCodeGenerate()
     {
         $code = Str::random(5);
         if(static::whereCode($code)->count() != 0)
         {
             return static::codeGenerate();
-        }else 
+        }else
         {
             return $code;
         }

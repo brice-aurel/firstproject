@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
-use Barryvdh\DomPDF\Facade\PDF;
-use Illuminate\Http\Request;
 use DateTime;
+use App\Models\Teacher;
+use App\Models\Complaint;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class TeacherController extends Controller
 {
 
     public function create()
     {
-        return view('teachers.create');
+        $complaints = Complaint::orderByDesc('id')->get();
+        $i = 1;
+        return view('complaints.index', compact(['complaints', 'i']));
     }
 
     public function store(Request $request)

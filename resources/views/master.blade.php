@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>{{ config('app.name') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 </head>
 
 <body>
@@ -25,10 +27,10 @@
                     </li>
                 </ul>
             </div>
-            @if (!Route::is("complaint.search") && !Route::is('complaint.create'))
-            <div>
-                @include('partial.form')
-            </div>
+            @if (!Route::is('complaint.search') && !Route::is('complaint.create'))
+                <div>
+                    @include('partial.form')
+                </div>
             @endif
         </div>
 

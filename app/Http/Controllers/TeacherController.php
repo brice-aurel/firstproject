@@ -13,15 +13,13 @@ class TeacherController extends Controller
 
     public function create()
     {
-        $complaints = Complaint::orderByDesc('id')->get();
-        $i = 1;
-        return view('complaints.index', compact(['complaints', 'i']));
+        return view('teachers.create-teacher');
     }
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'unique:teachers|min:3|required']);
-        Teacher::create(['name' => request('name')]);
+        $request->validate(['name' => 'unique:teachers|min:3|required', 'matricule' => 'required|min:3']);
+        Teacher::create(['name' => request('name'), 'matricule' => request('matricule')]);
         session()->flash('message', 'enseignant ajouté avec succès');
         return redirect()->route('teacher.create');
     }

@@ -7,16 +7,19 @@
     <title>{{ config('app.name') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/selector.css') }}" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-gray-50">
     <div class="container mx-auto p-4">
+
+        <!-- menu de navigation -->
         <div class="flex justify-between mt-2 bg-yellow-200 h-20 items-center px-4 mb-10">
-            <div>
-                <ul>
+            <!-- navbar -->
+            <div class="w-full">
+                <ul class="flex justify-around font-semibold">
                     <li>
-                        <a href="{{ route('bienvenue') }}" class="flex">
+                        <a href="{{ route('welcome') }}" class="flex">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-1 mr-2" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,24 +28,47 @@
                             Accueil
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('complaint.create') }}">enregistré un cas</a>
+                    </li>
+                    <li><a href="{{ route('complaint.index') }}">Listé tous les cas</a></li>
+                    <li><a href="{{ route('teacher.create') }}">Autres enregistrements</a></li>
+                    <li><a href="{{ route('complaint.search') }}">editions des rapports</a></li>
                 </ul>
             </div>
-            @if (!Route::is('complaint.search') && !Route::is('complaint.create'))
+            <!-- END navbar -->
+
+            <!-- Recherche script -->
+            @if (Route::is('complaint.index'))
                 <div>
                     @include('partial.form')
                 </div>
             @endif
+            <!-- END Recherche script -->
         </div>
+        <!-- End menu de navigation -->
 
+        <!-- Start message de reussite -->
+        @if (session()->has('message'))
+            <div class="p-4 border bg-gray-100 my-10 text-green-500 flex justify-center">
+                <p>{{ session()->get('message') }}</p>
+            </div>
+        @endif
+        <!-- End message de reussite -->
+
+        <!-- Section container -->
         <div>
             @yield('content')
         </div>
+        <!-- Section container -->
     </div>
 
     @include('partial.footer')
+
     <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/recherche.js') }}"></script>
+
 </body>
 
 

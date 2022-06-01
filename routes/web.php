@@ -15,9 +15,7 @@ use App\Http\Controllers\TeacherController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function() {
-    return view('bienvenue');
-} )->name('bienvenue');
+Route::get('/', function() { return view('accueil');})->name('welcome');
 
 Route::get('teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
 Route::post('teacher/create', [TeacherController::class, 'store'])->name('teacher.store');

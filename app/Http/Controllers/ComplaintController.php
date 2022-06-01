@@ -114,10 +114,13 @@ class ComplaintController extends Controller
     public function search(Request $request)
     {
         $i = 1;
+        $teachers = Teacher::all();
+        $campus = School::all();
+        $nom = Teacher::find($request->teacher);
         $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
         $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
-        $research = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
-        return view('complaints.research', compact(['research', 'i', 'dateDebut', 'dateFin']));
+        $research = Complaint::where('teacher_id', $request->teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.research', compact(['research', 'i', 'dateDebut', 'dateFin', 'teachers', 'campus','nom']));
     }
 
     public function pdfView(Request $request)
@@ -135,10 +138,10 @@ class ComplaintController extends Controller
 
     public function researchPDFView(Request $request)
     {
-        // dd([$request->dateDebut, $request->dateFin]);
+        $teacher = $request->teacher;
         $dateDebut = $request->dateDebut;
         $dateFin = $request->dateFin;
-        $research = Complaint::whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        $research = Complaint::where('teacher_id', $teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
         $i = 1;
         view()->share(['research' => $research, 'i' => $i, 'dateDebut' => $dateDebut, 'dateFin' => $dateFin]);
         if ($request->has('download')) {

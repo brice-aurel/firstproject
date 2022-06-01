@@ -6,7 +6,9 @@ jQuery(document).ready(function () {
         });
     });
 
-    $("#myBtn").click(function (e) {
+    $('select').select2();
+    
+    /*   $("#myBtn").click(function (e) {
         e.preventDefault();
         $(".modal, .modal-content").show();
         $(".modal").animate({ opacity: ".5" });
@@ -23,13 +25,11 @@ jQuery(document).ready(function () {
     $('.close').click(function (e) {
         e.preventDefault();
         $('.modal, .modal-content').hide();
-    });
+    }); */
 
-    $('.close-motif').click(function (e) {
+    /*   $('.close-motif').click(function (e) {
         e.preventDefault();
         $('.modal, .modal-motif').hide();
-    });
-
-    $('select').select2();
+    }); */
 
 });

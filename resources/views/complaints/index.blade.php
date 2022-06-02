@@ -45,7 +45,7 @@
                             <p>{{ $complaint->classe->name }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($complaint->hour) }}</p>
+                            <p>{{ format_heure($complaint->hour) }} h</p>
                         </td>
                         <td class="border p-1 text-sm">
                             <p>{{ $complaint->category->libelle }}</p>

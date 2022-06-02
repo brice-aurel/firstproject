@@ -29,21 +29,95 @@
             color: black;
         }
 
+        .iug {
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .title-gauche,
+        .title-droite {
+            text-align: center;
+            width: 25%;
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-right: 10px;
+        }
+
+        .title-gauche,
+        .title-droite,
+        .image {
+            display: inline-block;
+        }
+
+        .image {
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        img {
+            width: 170px;
+            height: 130px;
+        }
+
+        .title-gauche-header,
+        .title-droite-header {
+            font-size: 10px;
+        }
+
     </style>
 </head>
 
 <body>
+    <!-- Entête de IUG -->
+    <div class="menu">
+        <div class="title-gauche">
+            <div class="title-gauche-header">
+                <h3 class="iug">REPUBLIQUE DU CAMEROUN</h3>
+                <p class="iug"><b>Paix-Travail-Patrie</b></p>
+                <p class="iug">-----------------</p>
+                <h3 class="iug">INSTITUT UNIVERSITAIRE DU GOLFE DE GUINEE</h3>
+                <p class="iug">-----------------</p>
+                <p class="iug"><b>Cabinet du president</b></p>
+                <p class="iug">BP: 12 489 Douala-Cameroun FAX: (237) 33 42 89 02</p>
+                <p class="iug">Tel: (237) 33 43 04 52 / 33 37 50 59 / 33 37 50 60</p>
+                <p class="iug">Site-web: www.univ-iug.com</p>
+            </div>
+        </div>
+        <div class="image"><img src="./images/logo-iug.jpg" alt="logo-iug"></div>
+        <div class="title-droite">
+            <div class="title-droite-header">
+                <h3 class="iug">REPUBLIC OF CAMEROON</h3>
+                <p class="iug"><b>Peace-Work-Fatherland</b></p>
+                <p class="iug">-----------------</p>
+                <h3 class="iug">UNIVERSITY INSTITUTE OF GUINEA GULF</h3>
+                <p class="iug">-----------------</p>
+                <p class="iug"><b>The chairman's cabinet</b></p>
+                <p class="iug">PO.BOX: 12 489 Douala-Cameroon FAX: (237) 33 42 89 02</p>
+                <p class="iug">Tel: (237) 33 43 04 52 / 33 37 50 59 / 33 37 50 60</p>
+                <p class="iug">WebSite: www.univ-iug.com</p>
+            </div>
+        </div>
+    </div>
+    <!-- END Entête de IUG -->
 
-<!-- text d'affichage -->
-<div>
-    <h3>Liste d'indiscipline du {{ $ecole->name }} allant du
-        {{ (new DateTime($dateDebut))->format('d/m/Y') }} au
-        {{ (new DateTime($dateFin))->format('d/m/Y') }}</h3>
-</div>
-<!-- end text d'affichage -->
+    <!-- text d'affichage -->
+    <div>
+        <h3>Liste d'indiscipline de {{ $ecole->name }} allant du
+            {{ (new DateTime($dateDebut))->format('d/m/Y') }} au
+            {{ (new DateTime($dateFin))->format('d/m/Y') }}</h3>
+    </div>
+    <!-- end text d'affichage -->
 
 
-<!-- Tableau de recherche par enseignant-->
+    <!-- Tableau de recherche par enseignant-->
     <div>
         <table class="table-auto">
             <thead>
@@ -72,7 +146,7 @@
                             <p>{{ $complaint->classe->name }}</p>
                         </td>
                         <td>
-                            <p>{{ format_heure($complaint->hour) }}</p>
+                            <p>{{ format_heure($complaint->hour) }} h</p>
                         </td>
                         <td>
                             <p>
@@ -90,7 +164,7 @@
             </tbody>
         </table>
     </div>
-<!-- End Tableau de recherche par enseignant-->
+    <!-- End Tableau de recherche par enseignant-->
 
 </body>
 

@@ -145,8 +145,8 @@ class ComplaintController extends Controller
 
     public function pdfTeacherCreate(Request $request)
     {
-        $nom = Teacher::find($request->teacher);
-        $teacher = $request->teacher;
+        $nom = Teacher::find((int)$request->nom);
+        $teacher = (int)$request->nom;
         $dateDebut = $request->dateDebut;
         $dateFin = $request->dateFin;
         $research = Complaint::where('teacher_id', $teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();

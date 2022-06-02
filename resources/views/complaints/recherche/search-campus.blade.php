@@ -1,5 +1,5 @@
 <!-- text d'affichage -->
-<div class="mt-5 text-2xl md:flex md:justify-center font-semibold">
+<div class="mt-10 text-2xl md:flex md:justify-center font-semibold">
     <h3>Liste d'indiscipline de {{ $nom->name }} allant du
         {{ (new DateTime($dateDebut))->format('d/m/Y') }} au
         {{ (new DateTime($dateFin))->format('d/m/Y') }}</h3>
@@ -47,7 +47,7 @@
                             <p>{{ $complaint->classe->name }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($complaint->hour) }}</p>
+                            <p>{{ format_heure($complaint->hour) }} h</p>
                         </td>
                         <td>
                             <p>
@@ -66,7 +66,7 @@
         </table>
     </div>
 @else
-    <div>
+    <div class="text-center text-2xl">
         <p>{{ "Désolé aucun enregistrement d'indiscipline trouvé ☹☹☹ !" }}</p>
     </div>
 @endif

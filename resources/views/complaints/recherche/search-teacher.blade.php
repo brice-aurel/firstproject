@@ -9,7 +9,7 @@
 <!-- start bouton pour creer un PDF -->
 <div class="my-10">
     <p>
-        <a href="{{ route('generate-research-pdf', ['download' => 'pdf', 'dateDebut' => $dateDebut, 'dateFin' => $dateFin, 'teacher' => $teacher]) }}"
+        <a href="{{ route('generate-research-pdf', ['download' => 'pdf', 'dateDebut' => $dateDebut, 'dateFin' => $dateFin, 'nom' => $nom]) }}"
             class=" bg-green-200 hover:bg-green-400 text-sm font-semibold p-4 shadow-md rounded">
             Export to PDF
         </a>
@@ -44,7 +44,7 @@
                             <p>{{ $complaint->classe->name }}</p>
                         </td>
                         <td class="border p-1 text-sm">
-                            <p>{{ format_heure($complaint->hour) }}</p>
+                            <p>{{ format_heure($complaint->hour) }} h</p>
                         </td>
                         <td>
                             <p>
@@ -66,7 +66,7 @@
         </table>
     </div>
 @else
-    <div>
+    <div class="text-center text-2xl">
         <p>{{ "Désolé aucun enregistrement d'indiscipline trouvé ☹☹☹ !" }}</p>
     </div>
 @endif

@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         $complaints = Complaint::orderByDesc('id')->get();
         $i = 1;
-        return view('teachers.create', compact(['complaints', 'i']));
+        return view('categories.create', compact(['complaints', 'i']));
     }
 
     public function store(Request $request)
@@ -20,6 +20,6 @@ class CategoryController extends Controller
         $request->validate(['libelle' => 'unique:categories|min:3|required']);
         Category::create(['libelle' => request('libelle')]);
         session()->flash('message', 'Nouveau motif enregistré avec succès');
-        return redirect()->route('teacher.create');
+        return redirect()->route('category.create');
     }
 }

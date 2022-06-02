@@ -23,13 +23,19 @@ Route::get('teacher/{id}', [TeacherController::class, 'show'])->name('teacher.sh
 Route::get('generate-pdf-teacher/', [TeacherController::class, 'getPDFteacher'])->name('generate-pdf-teacher');
 
 Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index');
-Route::get('generate-pdf', [ComplaintController::class, 'pdfView'])->name('generate-pdf');
-Route::get('generate-research-pdf', [ComplaintController::class, 'researchPDFView'])->name('generate-research-pdf');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint/create', [ComplaintController::class, 'store'])->name('complaint.store');
-Route::get('/complaint/search', [ComplaintController::class, 'search'])->name('complaint.search');
 
-Route::post('category/create', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/complaint/recherche', [ComplaintController::class, 'searchTeacherCreate'])->name('complaint.searchTeacher');
+Route::post('/complaint/search-teacher', [ComplaintController::class, 'searchTeacher'])->name('complaint.search');
+Route::post('/complaint/search-campus', [ComplaintController::class, 'searchCampus'])->name('complaint.search-school');
+Route::get('generate-pdf', [ComplaintController::class, 'pdfView'])->name('generate-pdf');
+Route::get('generate-research-teacher-pdf', [ComplaintController::class, 'pdfTeacherCreate'])->name('generate-research-pdf');
+Route::get('generate-research-campus-pdf', [ComplaintController::class, 'pdfCampusCreate'])->name('generate-campus-pdf');
+
+
+Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('category/store', [CategoryController::class, 'store'])->name('category.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

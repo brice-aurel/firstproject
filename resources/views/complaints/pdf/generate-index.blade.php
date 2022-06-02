@@ -68,9 +68,7 @@
                         <p>{{ format_heure($complaint->hour) }}</p>
                     </td>
                     <td>
-                        <p>
-                            <b>{{ $complaint->category->libelle }}</b>
-                        </p>
+                        <p>{{ $complaint->category->libelle }}</p>
                     </td>
                     <td>
                         <p>{{ $complaint->observation }}</p>

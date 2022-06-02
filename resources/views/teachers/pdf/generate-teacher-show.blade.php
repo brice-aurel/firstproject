@@ -33,13 +33,11 @@
 </head>
 
 <body>
-    <div>
-        <h3>l'enseignant
-            <b class="">{{ $teacher->name }}</b>
-            recense
-            {{ $teacher->complaints->count() }}
-            cas d'indiscipline
-        </h3>
+    <div class="text-center my-5 text-4xl">
+        <h1 class="font-semibold">Liste des cas d'
+            {{ Str::plural('indiscipline', $teacher->complaints->count()) }} de l'enseignant
+            <b>{{ $teacher->name }}</b>
+        </h1>
     </div>
 
     <table class="table-auto mt-10">
@@ -69,11 +67,7 @@
                         <p>{{ format_heure($complaint->hour) }}</p>
                     </td>
                     <td>
-                        <p>
-                            <b>
-                                {{ $complaint->category->libelle }}
-                            </b>
-                        </p>
+                        <p>{{ $complaint->category->libelle }}</p>
                     </td>
                     <td>
                         <p>

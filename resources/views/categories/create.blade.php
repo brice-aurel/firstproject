@@ -9,7 +9,7 @@
         <div class="shadow-xl border p-4 bg-white mt-10 mb-20 rounded-xl md:w-64">
             <form action="{{ route('category.store') }}" method="POST">
                 @csrf
-                
+
                 <div>
                     <label for="">nom *:</label>
                     <input type="text" name="libelle" class="w-full border rounded-sm my-2 @error('libelle') is-invalid @enderror"

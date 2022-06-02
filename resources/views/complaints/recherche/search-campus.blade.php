@@ -1,0 +1,73 @@
+<!-- text d'affichage -->
+<div class="mt-5 text-2xl md:flex md:justify-center font-semibold">
+    <h3>Liste d'indiscipline de {{ $nom->name }} allant du
+        {{ (new DateTime($dateDebut))->format('d/m/Y') }} au
+        {{ (new DateTime($dateFin))->format('d/m/Y') }}</h3>
+</div>
+<!-- end text d'affichage -->
+
+<!-- start bouton pour creer un PDF -->
+<div class="my-10">
+    <p>
+        <a href="{{ route('generate-campus-pdf', ['download' => 'pdf', 'dateDebut' => $dateDebut, 'dateFin' => $dateFin, 'nom' => $nom]) }}"
+            class=" bg-green-200 hover:bg-green-400 text-sm font-semibold p-4 shadow-md rounded">
+            Export to PDF
+        </a>
+    </p>
+</div>
+<!-- end bouton pour creer un PDF -->
+
+<!-- Tableau de recherche par enseignant-->
+@if ($research->isNotEmpty())
+    <div class="mt-10">
+        <table class="table-auto">
+            <thead>
+                <tr class="text-left">
+                    <th class="border text-sm p-4 text-left bg-gray-100">N°</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Noms de l'enseignant</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Enseignements</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Classe</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Sanction</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Motifs</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Observation</th>
+                    <th class="border text-sm p-4 text-left bg-gray-100">Date des faits</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach ($research as $complaint)
+                    <tr class="hover:bg-gray-100">
+                        <td class="border p-1 text-sm">{{ $i++ }}</td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ $complaint->teacher->name }}</p>
+                        </td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ $complaint->course }}</p>
+                        </td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ $complaint->classe->name }}</p>
+                        </td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ format_heure($complaint->hour) }}</p>
+                        </td>
+                        <td>
+                            <p>
+                                <b class="font-semibold">{{ $complaint->category->libelle }}</b>
+                            </p>
+                        </td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ $complaint->observation }}</p>
+                        </td>
+                        <td class="border p-1 text-sm">
+                            <p>{{ format_date($complaint->date) }}</p>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@else
+    <div>
+        <p>{{ "Désolé aucun enregistrement d'indiscipline trouvé ☹☹☹ !" }}</p>
+    </div>
+@endif
+<!-- End Tableau de recherche par enseignant-->

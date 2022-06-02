@@ -91,5 +91,9 @@
         </div>
         <!-- End formulaire de recherche par campus -->
     </div>
-
+    @if (Route::is('complaint.search'))
+        @include('complaints.recherche.search-teacher')
+    @else
+        @include('complaints.recherche.search-campus')
+    @endif
 @endsection

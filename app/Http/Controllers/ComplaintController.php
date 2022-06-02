@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
+use App\Models\Category;
 use App\Models\Classe;
+use App\Models\Complaint;
 use App\Models\School;
 use App\Models\Teacher;
-use App\Models\Category;
-use App\Models\Complaint;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\PDF;
+use DateTime;
+use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
 {
@@ -111,16 +111,11 @@ class ComplaintController extends Controller
         //
     }
 
-    public function search(Request $request)
+    public function searchTeacherCreate()
     {
-        $i = 1;
-        $teachers = Teacher::all();
+        $teachers = Teacher::orderBy('name')->get();
         $campus = School::all();
-        $nom = Teacher::find($request->teacher);
-        $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
-        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
-        $research = Complaint::where('teacher_id', $request->teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
-        return view('complaints.research', compact(['research', 'i', 'dateDebut', 'dateFin', 'teachers', 'campus','nom']));
+        return view('complaints.research', compact(['teachers', 'campus']));
     }
 
     public function pdfView(Request $request)
@@ -130,27 +125,71 @@ class ComplaintController extends Controller
         view()->share(['complaints' => $complaints, 'i' => $i]);
         if ($request->has('download')) {
             PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
-            $pdf = PDF::loadView('complaints.generate-pdf');
+            $pdf = PDF::loadView('complaints.pdf.generate-index');
             return $pdf->download("Liste des enseignants indisciplines " . (new DateTime(now()))->format('d/m/Y') . ".pdf");
         }
-        return view('complaints.generate-pdf');
+        return view('complaints.index');
     }
 
-    public function researchPDFView(Request $request)
+    public function searchTeacher(Request $request)
     {
+        $i = 1;
+        $teachers = Teacher::orderBy('name')->get();
+        $campus = School::all();
+        $nom = Teacher::find($request->teacher);
+        $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
+        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
+        $research = Complaint::where('teacher_id', $request->teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.recherche.resultat', compact(['research', 'i', 'dateDebut', 'dateFin', 'teachers', 'campus', 'nom']));
+    }
+
+    public function pdfTeacherCreate(Request $request)
+    {
+        $nom = Teacher::find($request->teacher);
         $teacher = $request->teacher;
         $dateDebut = $request->dateDebut;
         $dateFin = $request->dateFin;
         $research = Complaint::where('teacher_id', $teacher)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
         $i = 1;
-        view()->share(['research' => $research, 'i' => $i, 'dateDebut' => $dateDebut, 'dateFin' => $dateFin]);
+        view()->share(['research' => $research, 'i' => $i, 'dateDebut' => $dateDebut, 'dateFin' => $dateFin, 'nom' => $nom]);
         if ($request->has('download')) {
             PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
-            $pdf = PDF::loadView('complaints.generate-research');
-            return $pdf->download("Liste d'indisciplines allant du " . (new DateTime($dateDebut))->format('d/m/Y') .
+            $pdf = PDF::loadView('complaints.pdf.generate-teacher');
+            return $pdf->download("Liste d'indisciplines de l'enseignant ". $nom->name ." allant du " . (new DateTime($dateDebut))->format('d/m/Y') .
                 " au" . (new DateTime($dateFin))->format('d/m/Y') . ".pdf");
         }
-        return view('complaints.generate-research');
+        return view('complaints.recherche.resultat');
+    }
+
+    public function searchCampus(Request $request)
+    {
+        $i = 1;
+        $id = (int)$request->school;
+        $teachers = Teacher::orderBy('name')->get();
+        $campus = School::all();
+        $nom = School::find($id);
+        $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
+        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
+        $research = Complaint::where('school_id', $id)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        return view('complaints.recherche.resultat', compact(['research', 'i', 'dateDebut', 'dateFin', 'teachers', 'campus', 'nom']));
+    }
+
+    public function pdfCampusCreate(Request $request)
+    {
+        $i = 1;
+        $id = (int)$request->nom;
+        $ecole = School::find($id);
+        $dateDebut = (new DateTime($request->dateDebut))->format('Y/m/d');
+        $dateFin = (new DateTime($request->dateFin))->format('Y/m/d');
+        $research = Complaint::where('school_id', $id)->whereBetween('date', ["$dateDebut", "$dateFin"])->get();
+        view()->share(['research' => $research, 'i' => $i, 'dateDebut' => $dateDebut, 'dateFin' => $dateFin, 'ecole' => $ecole]);
+        if ($request->has('download')) {
+            PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadView('complaints.pdf.generate-campus');
+            return $pdf->download("Liste d'indisciplines de ". $ecole->name ." allant du " . (new DateTime($dateDebut))->format('d/m/Y') .
+                " au" . (new DateTime($dateFin))->format('d/m/Y') . ".pdf");
+        }
+        return view('complaints.recherche.resultat');
     }
 
 }

@@ -47,10 +47,8 @@
                         <td class="border p-1 text-sm">
                             <p>{{ format_heure($complaint->hour) }}</p>
                         </td>
-                        <td>
-                            <p>
-                                <b class="font-semibold">{{ $complaint->category->libelle }}</b>
-                            </p>
+                        <td class="border p-1 text-sm">
+                            <p>{{ $complaint->category->libelle }}</p>
                         </td>
                         <td class="border p-1 text-sm">
                             <p>{{ $complaint->observation }}</p>

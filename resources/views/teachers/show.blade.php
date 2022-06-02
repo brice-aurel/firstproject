@@ -5,12 +5,9 @@
 
         <!-- Nom de l'eneignant -->
         <div class="text-center my-5 text-4xl">
-            <h1 class="font-semibold">l'enseignant
+            <h1 class="font-semibold">Liste des cas d'
+                {{ Str::plural('indiscipline', $teacher->complaints->count()) }} de l'enseignant
                 <b>{{ $teacher->name }}</b>
-                recense
-                {{ $teacher->complaints->count() }} cas d'
-                {{ Str::plural('indiscipline', $teacher->complaints->count()) }}
-
             </h1>
         </div>
         <!-- END de l'eneignant -->

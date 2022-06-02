@@ -29,11 +29,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('complaint.create') }}">enregistré un cas</a>
+                        <a href="{{ route('complaint.create') }}">Enregistrement d'indiscipline</a>
                     </li>
                     <li><a href="{{ route('complaint.index') }}">Listé tous les cas</a></li>
-                    <li><a href="{{ route('teacher.create') }}">Autres enregistrements</a></li>
-                    <li><a href="{{ route('complaint.search') }}">editions des rapports</a></li>
+                    <li><a href="{{ route('teacher.create') }}">Créer un enseignant</a></li>
+                    <li><a href="{{ route('category.create') }}">Créer un motif</a></li>
+                    <li><a href="{{ route('complaint.searchTeacher') }}">editions des rapports</a></li>
                 </ul>
             </div>
             <!-- END navbar -->

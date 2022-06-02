@@ -21,7 +21,7 @@
                 <div class="md:flex md:justify-between">
                     <div>
                         <label for="">Nom(s) complet :*</label>
-                        <select name="teacher" class="@error('teacher') is-invalid @enderror">
+                        <select name="teacher" class="@error('teacher') is-invalid @enderror md:w-64">
                             <option value="">-- Choix de l'enseignant --</option>
                             @foreach ($teachers as $teacher)
                                 <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
@@ -73,7 +73,7 @@
                     @enderror
                     </div>
                     <div>
-                        <label for="">Sanction</label>
+                        <label for="">Sanction *:</label>
                         <input type="time" name="start" id="" class="block my-2 border-gray-400 h-7">
                         @error('start')
                         <span class="text-red-400 mt-2 block">{{ $message }}</span>
